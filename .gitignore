@@ -1,5 +1,11 @@
-.env
 
 # Archivos del sistema operativo
 .DS_Store
 Thumbs.db
+
+# Python
+.venv/
+__pycache__/
+
+#Datos sensibles
+.env

@@ -12,7 +12,7 @@ load_dotenv()
 
 def conectar():
     # abro una conexión nueva a la BD cada vez que se llama a esta función
-    # los valores por defecto (los de la derecha) por si se me olvida el .env (menos la contraseña, que no se pone por seguridad)
+    # los valores por defecto (los de la derecha) por si falla el .env (menos la contraseña, que no se pone por seguridad)
     conn = psycopg2.connect(
         host=os.getenv("DB_HOST", "localhost"),
         port=os.getenv("DB_PORT", "5432"),
@@ -24,4 +24,5 @@ def conectar():
     return conn  # devuelvo la conexión para usarla en cada endpoint
 
 # Cada endpoint abre su conexión y la cierra en el finally.
+
 # Hacer pool de conexiones¿?

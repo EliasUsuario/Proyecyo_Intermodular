@@ -2,34 +2,21 @@
 
 
 from fastapi import FastAPI
-from conexion import conectar
+from fastapi.middleware.cors import CORSMiddleware
+import rutas_articulos 
 
-app = FastAPI(title="Test de Conexión GestorMaterial")
+app = FastAPI(title="GestorMaterial API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+app.include_router(rutas_articulos.router)
 
 @app.get("/")
-def probar_conexion():
-    try:
-        # Conexión a PostgreSQL
-        conn = conectar()
-        cursor = conn.cursor()
-        
-        # Consulta de prueba a la tabla creada
-        cursor.execute("SELECT COUNT(*) AS total FROM usuarios;")
-        resultado = cursor.fetchone()
-        
-        # Cierre de la conexión para no dejarla colgada
-        cursor.close()
-        conn.close()
-        
-        # Resultado de la conexión y consulta
-        return {
-            "estado": "OK. Conexión a PostgreSQL",
-            "usuarios_registrados": resultado["total"],
-            "mensaje": "Conexión y prueba sin errores"
-        }
-        
-    except Exception as e:
-        return {
-            "estado": "Error al conectar con pgAdmin4",
-            "detalle_del_error": str(e)
-        }
+def inicio():
+    return {"mensaje": "API de GestorMaterial funcionando correctamente"}

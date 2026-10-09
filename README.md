@@ -65,35 +65,40 @@ Para probar esta primera fase del proyecto (Base de Datos + API):
 **1. Base de datos (PostgreSQL):**
 - Hay que crear una base de datos local llamada `gestormaterial`.
 - Despues ejecutar los scripts ubicados en la carpeta `sql/` en este orden:
-- 1. `gestormaterial.sql` (para generar la estructura de tablas y relaciones).
+- 1. `gestormaterial.sql` (estructura).
 - 2. `datos_prueba.sql` (para poblar la base de datos con usuarios y artículos de test).
 
-**2. Backend (API con FastAPI):**
-- Despues escribir en terminal en la carpeta principal del proyecto (o donde se ubique el backend).
-```` 
+2.**Crear y activar el entorno virtual (IMPORTANTE):**
+- Abrir una terminal en la carpeta raíz del proyecto.
+- Crear el entorno virtual:
+````
 python -m venv .venv
 ````
-**Si no se tiene instalado las dependencias** 
-- En terminal poner:
+
+- Se tiene que ver `(.venv)` en el terminal antes de seguir (entorno virtual)
+    
+3.**Instalar dependencias:**
+- Con el entorno activado, ejecutar:
 ````
 pip install fastapi uvicorn psycopg2-binary python-dotenv pydantic
-````
-**3. Crear un archivo .env en la misma ruta que main.py con las credenciales locales de la base de datos creada anteriormente con este contenido:**
+```` 
 
+4.**Variables de entorno:**
+- Crear un archivo `.env` en la misma ruta que `main.py` con las credenciales de PostgreSQL:
+````
 DB_HOST=localhost
 DB_PORT=5432
 DB_NAME=gestormaterial
 DB_USER=postgres
 DB_PASSWORD=tu_contraseña_aqui
+````
 
-**4. Levantar servidor local**
-- Escribir en terminal:
+5.**Levantar el servidor:**
+- Ejecutar:
 ````
 uvicorn main:app --reload
 ````
-
-**4. Abrir el enlace que aparece en la terminal**
-- Debe de aparecer [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) para acceder a la interfaz interactiva de swager y probar los endpoints desarrollados hasta la fecha.
+- Abrir el navegador en `http://127.0.0.1:8000/docs` para ver la interfaz interactiva.
 
 ## 8. Decisiones tomadas
 

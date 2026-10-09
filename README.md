@@ -1,4 +1,4 @@
-# Proyecto Intermodular: GestorMaterial
+# Proyecto Intermodular: GestorMaterial (Entrega 50%)
 **Alumno:** Elías Martínez
 
 ## 1. Resumen contenido
@@ -26,7 +26,7 @@ App móvil para que un operario de taller registre en pocos segundos lo que gast
 
 Como mucho, si da tiempo, se deja la base de datos preparada (columnas que admitan nulos). Ni la toma de fotos ni el modo offline se programan.
 
-## 5. Reglas de negocio (para no olvidarme de ninguna)
+## 4. Reglas (para no olvidarme de ninguna)
 
 - Usuarios con sesión individual (id operario).
 - Las contraseñas se guardan con hash, quedarian expuestas.
@@ -39,7 +39,7 @@ Como mucho, si da tiempo, se deja la base de datos preparada (columnas que admit
 - Cada movimiento de consumible queda guardado en el histórico (importante para el inventario real, por si no coincide)
 - Si una máquina está reservada por admin, la app avisa al operario al escanearla o en busqueda (solo no disponible, no dar información de más).
 
-## 6. Modelo de datos (resumen para que no se me olvide)
+## 5. Modelo de datos (resumen para que no se me olvide)
 
 1. **Usuarios:** nombre, email, contraseña (con hash), rol.
 2. **Catálogo maestro:** nombre, descripción, categoría, EAN (opcional), tipo (consumible o maquinaria).
@@ -48,21 +48,54 @@ Como mucho, si da tiempo, se deja la base de datos preparada (columnas que admit
    - Maquinaria: una fila por unidad, con QR propio y estado (Disponible, En uso, En mantenimiento, Reservado por gerencia).
 4. **Historial de cada artículo:** préstamos, incidencias, movimientos de consumibles y reservas (muy importante para cotejar si fallan los inventarios)
 
-## 7. Estructura de carpetas
+## 6. Estructura de carpetas
 ```
 Carpeta       | Contenido
 
 - backend/    | API 
 - app/        | App Expo / React Native
 - sql/        | gestormaterial.sql y datos_prueba.sql
-- README.md   | 
+- README.md   | Documentación principal
 ```
 
-## 9. Cómo arrancarlo en local
+## 7. Cómo arrancarlo en local
 
-**Base de datos:** crear la BD `gestormaterial` en PostgreSQL y ejecutar `sql/schema.sql` y `sql/datos_prueba.sql`.
+Para probar esta primera fase del proyecto (Base de Datos + API):
 
-## 10. Decisiones tomadas
+**1. Base de datos (PostgreSQL):**
+- Hay que crear una base de datos local llamada `gestormaterial`.
+- Despues ejecutar los scripts ubicados en la carpeta `sql/` en este orden:
+  1. `gestormaterial.sql` (para generar la estructura de tablas y relaciones).
+  2. `datos_prueba.sql` (para poblar la base de datos con usuarios y artículos de test).
+
+**2. Backend (API con FastAPI):**
+- Despues escribir en terminal en la carpeta principal del proyecto (o donde se ubique el backend).
+```` 
+python -m venv .venv
+````
+**Si no se tiene instalado las dependencias** 
+- En terminal poner:
+````
+pip install fastapi uvicorn psycopg2-binary python-dotenv pydantic
+````
+**3. Crear un archivo .env en la misma ruta que main.py con las credenciales locales de la base de datos creada anteriormente con este contenido:**
+
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=gestormaterial
+DB_USER=postgres
+DB_PASSWORD=tu_contraseña_aqui
+
+**4. Levantar servidor local**
+- Escribir en terminal:
+````
+uvicorn main:app --reload
+````
+
+**4. Abrir el enlace que aparece en la terminal**
+- Debe de aparecer [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) para acceder a la interfaz interactiva de swager y probar los endpoints desarrollados hasta la fecha.
+
+## 8. Decisiones tomadas
 
 - Estado de una máquina prestada: `en_uso`
 - Stock en números enteros (por ejemplo, el cable se mide en metros enteros, sin decimales)

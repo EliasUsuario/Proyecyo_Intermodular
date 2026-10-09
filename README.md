@@ -65,8 +65,8 @@ Para probar esta primera fase del proyecto (Base de Datos + API):
 **1. Base de datos (PostgreSQL):**
 - Hay que crear una base de datos local llamada `gestormaterial`.
 - Despues ejecutar los scripts ubicados en la carpeta `sql/` en este orden:
-  1. `gestormaterial.sql` (para generar la estructura de tablas y relaciones).
-  2. `datos_prueba.sql` (para poblar la base de datos con usuarios y artículos de test).
+- 1. `gestormaterial.sql` (para generar la estructura de tablas y relaciones).
+- 2. `datos_prueba.sql` (para poblar la base de datos con usuarios y artículos de test).
 
 **2. Backend (API con FastAPI):**
 - Despues escribir en terminal en la carpeta principal del proyecto (o donde se ubique el backend).
